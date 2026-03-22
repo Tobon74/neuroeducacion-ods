@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.ipynb_checkpoints/
+
+# Quarto
+/.quarto/
+dashboard/.quarto/
+dashboard/index.quarto_ipynb
+
+# Datos crudos grandes (se regeneran con los scripts)
+datos/raw/
+
+# Entornos virtuales
+.env
+.venv
+env/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+# HTML generado por Quarto (se regenera con quarto render)
+dashboard/index.html
+dashboard/*.html
