@@ -10,6 +10,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import os
+import requests # AÑADIDO: Para descargar el GeoJSON
+import json     # AÑADIDO: Para parsear el GeoJSON
 
 os.makedirs("visualizaciones", exist_ok=True)
 
@@ -39,19 +41,34 @@ TEMPLATE = dict(
     title_font_color="#0A2342",
 )
 
-# ── VIZ 1: MAPA ───────────────────────────────────────────────────────────────
+# ── VIZ 1: MAPA (CORREGIDO PARA SER OFFLINE-READY) ─────────────────────────────
 print("\n[1/5] Generando mapa coropleta IVN...")
 df["cve_str"] = df["cve_estado"].astype(str).str.zfill(2)
 
+# 1. Descargar el GeoJSON de GitHub en memoria
+url_geojson = "https://raw.githubusercontent.com/JuveCampos/MexicoSinIslas/master/Sin_islas.geojson"
+print("  Descargando GeoJSON...")
+respuesta = requests.get(url_geojson)# 1. Descargar el GeoJSON de GitHub en memoria
+
+
+if respuesta.status_code == 200:
+    mapa_mexico = respuesta.json()
+    
+    # --- EL DETECTOR DE PROPIEDADES ---
+    print("\n--- PROPIEDADES DEL GEOJSON ---")
+    print(mapa_mexico["features"][0]["properties"])
+    print("-------------------------------\n")
+    
+else:
+    print(f"  ERROR: No se pudo descargar el mapa. Código de estado: {respuesta.status_code}")
+    exit()
+
+# 2. Construir el mapa con el diccionario (no con la URL)
 fig1 = px.choropleth(
     df,
-    geojson=(
-        "https://raw.githubusercontent.com/isaacarroyov/data_viz_practice/"
-        "main/Python/visualizations-from-tweets/2022/2022-05_30DayChartChallenge/"
-        "data/estados_mexico.geojson"
-    ),
-    locations="cve_str",
-    featureidkey="properties.CVE_ENT",
+    geojson=mapa_mexico,
+    locations="cve_estado",            # <--- CAMBIO 1: Usamos la columna de números original (1, 2, 3), NO "cve_str"
+    featureidkey="properties.CVE_EDO", # <--- CAMBIO 2: La llave secreta que acabamos de descubrir
     color="IVN",
     hover_name="estado",
     hover_data={
@@ -292,9 +309,4 @@ print("  Guardado: visualizaciones/05_curva_impacto.html")
 
 print("\n" + "="*60)
 print("5 visualizaciones listas en carpeta visualizaciones/")
-print("="*60)
-print("\nAbrir en navegador:")
-for i, f in enumerate(["01_mapa_ivn","02_scatter_ods","03_radar_criticos",
-                        "04_brecha_barras","05_curva_impacto"], 1):
-    print(f"  xdg-open visualizaciones/{f}.html")
-print("\nSiguiente paso: python scripts/04_quarto_integrar.py")
+print("="*60) 

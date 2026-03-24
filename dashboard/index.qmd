@@ -9,7 +9,9 @@ format:
     theme: [cosmo, custom.scss]
     toc: false
     smooth-scroll: true
-    embed-resources: false
+    # CAMBIO CRÍTICO: Esto mete todo el código dentro de un solo archivo .html
+    embed-resources: true 
+    self-contained: true
     page-layout: full
 execute:
   echo: false
@@ -26,41 +28,26 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import os
 
-# Ruta relativa desde dashboard/ hacia datos/
-DATA_PATH = "../datos/clean/vulnerabilidad_neuroeducativa.csv"
-
-df = pd.read_csv(DATA_PATH)
-df["cve_str"] = df["cve_estado"].astype(str).str.zfill(2)
-
-C_CRITICO = "#E63946"
-C_ALTO    = "#F4A261"
-C_MEDIO   = "#A8DADC"
-C_BAJO    = "#1D3557"
-C_FONDO   = "#F1FAEE"
-
+C_CRITICO, C_ALTO, C_MEDIO, C_BAJO, C_FONDO = "#E63946", "#F4A261", "#A8DADC", "#1D3557", "#F1FAEE"
 COLOR_MAP = {
     "Crítico": C_CRITICO,
-    "Alto":    C_ALTO,
-    "Medio":   C_MEDIO,
-    "Bajo":    C_BAJO,
+    "Alto": C_ALTO,
+    "Medio": C_MEDIO,
+    "Bajo": C_BAJO
 }
 
+# Fíjate que aquí ya NO hay ninguna URL
 TEMPLATE = dict(
     plot_bgcolor=C_FONDO,
     paper_bgcolor="white",
     font_family="Georgia, serif",
     font_color="#1D3557",
-    title_font_size=16,
+    title_font_size=18,
     title_font_color="#0A2342",
 )
 
-GEOJSON_URL = (
-    "https://raw.githubusercontent.com/isaacarroyov/data_viz_practice/"
-    "main/Python/visualizations-from-tweets/2022/"
-    "2022-05_30DayChartChallenge/data/estados_mexico.geojson"
-)
+df = pd.read_csv("../datos/clean/vulnerabilidad_neuroeducativa.csv")
 ```
 
 <!-- ══════════════════════════════════════════════════════
@@ -81,34 +68,35 @@ GEOJSON_URL = (
 
 ::: {.column-screen-inset .grid}
 
-::: {.g-col-12 .g-col-md-5 .story-section style="padding-left:2rem;"}
+::: {.g-col-12 .g-col-md-5 .story-section}
 
 ## El problema que nadie nombra correctamente
 
 En México hablamos de **rezago educativo** como si fuera un problema de escuelas.
 Hablamos de **desnutrición infantil** como si fuera un problema de alimentos.
 
-Pero la neurociencia dice algo diferente:
+Pero la neurociencia nos dice algo diferente:
 
-> Cuando un niño crece en pobreza extrema, con desnutrición crónica y
-> exposición a violencia, su corteza prefrontal se desarrolla de manera
-> distinta. No es metáfora. Es anatomía.
+> Cuando un niño crece en pobreza extrema, con desnutrición crónica y exposición
+> a violencia, su corteza prefrontal se desarrolla de manera distinta.
+> No es metáfora. Es anatomía.
 
 Este tablero cruza datos oficiales de cuatro fuentes para mostrar dónde
 en México ese daño es más probable — y por qué los **ODS 3 y ODS 4**
 son, en realidad, el mismo problema.
 
-<div style="display:flex; gap:2rem; margin-top:2.5rem;">
+```{=html}
+<div style="display:flex; gap:2rem; margin-top:2.5rem; margin-bottom:2rem;">
   <div>
-    <span class="stat-number">80.3</span>
+    <span class="stat-number">80.3</span><br>
     <span class="stat-label">puntos de brecha<br>Chiapas vs CDMX</span>
   </div>
   <div>
-    <span class="stat-number">32</span>
+    <span class="stat-number">32</span><br>
     <span class="stat-label">estados<br>analizados</span>
   </div>
 </div>
-
+```
 :::
 
 ::: {.g-col-12 .g-col-md-7 .sticky-column}
@@ -116,11 +104,17 @@ son, en realidad, el mismo problema.
 ```{python}
 #| label: mapa-ivn
 
+import requests
+
+url_mapa = "https://raw.githubusercontent.com/JuveCampos/MexicoSinIslas/master/Sin_islas.geojson"
+respuesta = requests.get(url_mapa)
+mapa_mexico = respuesta.json()
+
 fig1 = px.choropleth(
     df,
-    geojson=GEOJSON_URL,
-    locations="cve_str",
-    featureidkey="properties.CVE_ENT",
+    geojson=mapa_mexico,
+    locations="cve_estado",
+    featureidkey="properties.CVE_EDO",
     color="IVN",
     hover_name="estado",
     hover_data={
@@ -129,7 +123,7 @@ fig1 = px.choropleth(
         "rezago_educativo_pct": ":.1f",
         "desnutricion_cronica_pct": ":.1f",
         "pobreza_extrema_pct": ":.1f",
-        "cve_str": False,
+        "cve_estado": False
     },
     color_continuous_scale=[
         [0.0, "#1D3557"],
@@ -146,6 +140,7 @@ fig1 = px.choropleth(
     },
     title="Índice de Vulnerabilidad Neuroeducativa por estado",
 )
+
 fig1.update_geos(fitbounds="locations", visible=False, bgcolor=C_FONDO)
 fig1.update_layout(
     **TEMPLATE,
@@ -157,6 +152,7 @@ fig1.update_layout(
     margin=dict(l=0, r=0, t=50, b=0),
     height=560,
 )
+
 fig1.show()
 ```
 
