@@ -80,7 +80,7 @@ Pero la neurociencia nos dice algo diferente:
 
 > Cuando un niño crece en pobreza extrema, con desnutrición crónica y exposición
 > a violencia, su corteza prefrontal se desarrolla de manera distinta.
-> No es metáfora. Es anatomía.
+> No es metáfora. Es neuroanatomía.
 
 Este tablero cruza datos oficiales de cuatro fuentes para mostrar dónde
 en México ese daño es más probable — y por qué los **ODS 3 y ODS 4**
@@ -399,7 +399,7 @@ fig2.show()
 ## La firma territorial del problema
 
 Los estados del sur concentran simultáneamente el mayor rezago educativo
-y la mayor desnutrición infantil. Eso no es geográfico — es político.
+y la mayor desnutrición infantil. Eso no es geográfico — es política pública.
 
 ```{python}
 #| label: brecha-barras
