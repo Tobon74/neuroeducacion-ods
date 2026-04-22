@@ -1,0 +1,17 @@
+[project]
+name = "hackods-vocesods2030"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "geopandas>=1.1.3",
+    "jupyter>=1.1.1",
+    "nbclient>=0.10.4",
+    "nbformat>=5.10.4",
+    "numpy>=2.4.4",
+    "pandas>=3.0.2",
+    "plotly>=6.7.0",
+    "pyyaml>=6.0.3",
+    "requests>=2.33.1",
+]
