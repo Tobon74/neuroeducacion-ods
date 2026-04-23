@@ -55,13 +55,11 @@ df["cve_str"] = df["cve_estado"].astype(str).str.zfill(2)
      SECCIÓN 0 — BADGES ODS
 ════════════════════════════════════════════════════════ -->
 
-<div style="padding: 1.5rem 2rem 0; display:flex; gap:0.5rem; align-items:center;">
-  <span class="ods-badge ods-3">ODS 3 · Salud</span>
-  <span class="ods-badge ods-4">ODS 4 · Educación</span>
-  <span style="font-size:0.85rem; color:#888; margin-left:0.5rem;">
-    Datos: INEGI · CONEVAL · SEP · ENSANUT · 2020–2022
-  </span>
-</div>
+::: {.ods-container}
+[ODS 3 · Salud]{.ods-badge .ods-3}
+[ODS 4 · Educación]{.ods-badge .ods-4}
+[Datos: · 2020–2022]{.fuente-meta}
+:::
 
 <!-- ══════════════════════════════════════════════════════
      SECCIÓN 1 — EL PROBLEMA
@@ -86,18 +84,19 @@ Este tablero cruza datos oficiales de cuatro fuentes para mostrar dónde
 en México ese daño es más probable — y por qué los **ODS 3 y ODS 4**
 son, en realidad, el mismo problema.
 
-```{=html}
-<div style="display:flex; gap:2rem; margin-top:2.5rem; margin-bottom:2rem;">
-  <div>
-    <span class="stat-number">80.3</span><br>
-    <span class="stat-label">puntos de brecha<br>Chiapas vs CDMX</span>
-  </div>
-  <div>
-    <span class="stat-number">32</span><br>
-    <span class="stat-label">estados<br>analizados</span>
-  </div>
-</div>
-```
+::: {.grid style="margin-top:2.5rem; margin-bottom:2rem;"}
+::: {.g-col-6}
+[80.3]{.stat-number}
+[puntos de brecha\
+Chiapas vs CDMX]{.stat-label}
+:::
+
+::: {.g-col-6}
+[32]{.stat-number}
+[estados\
+analizados]{.stat-label}
+:::
+:::
 :::
 
 ::: {.g-col-12 .g-col-md-7 .sticky-column}
@@ -203,7 +202,7 @@ fig1.update_layout(
 fig1.show()
 ```
 
-<p class="fuente">Fuente: INEGI, CONEVAL, SEP, ENSANUT · Elaboración propia</p>
+[Fuente: INEGI, CONEVAL, SEP, ENSANUT · Elaboración propia]{.fuente}
 
 :::
 
@@ -294,7 +293,7 @@ fig3.update_layout(
 fig3.show()
 ```
 
-<p class="fuente">El área del polígono representa el perfil de vulnerabilidad del estado</p>
+[El área del polígono representa el perfil de vulnerabilidad del estado]{.fuente}
 
 :::
 
@@ -304,7 +303,9 @@ fig3.show()
      SECCIÓN 3 — ODS 3 × ODS 4
 ════════════════════════════════════════════════════════ -->
 
-<div class="section-divider">ODS 3 × ODS 4</div>
+::: {.section-divider}
+ODS 3 × ODS 4
+:::
 
 ::: {.column-screen-inset .grid}
 
@@ -382,7 +383,7 @@ fig2.update_layout(
 fig2.show()
 ```
 
-<p class="fuente">Tamaño de burbuja = pobreza extrema (%) · Fuente: CONEVAL, SEP, ENSANUT 2022</p>
+[Tamaño de burbuja = pobreza extrema (%) · Fuente: CONEVAL, SEP, ENSANUT 2022]{.fuente}
 
 :::
 
@@ -392,7 +393,9 @@ fig2.show()
      SECCIÓN 4 — BRECHA TERRITORIAL
 ════════════════════════════════════════════════════════ -->
 
-<div class="section-divider">La brecha</div>
+::: {.section-divider}
+La brecha
+:::
 
 ::: {.column-body-outset}
 
@@ -449,7 +452,7 @@ fig4.update_layout(
 fig4.show()
 ```
 
-<p class="fuente">Fuente: SEP 2022 (rezago), ENSANUT 2022 (desnutrición) · Elaboración propia</p>
+[Fuente: SEP 2022 (rezago), ENSANUT 2022 (desnutrición) · Elaboración propia]{.fuente}
 
 :::
 
@@ -457,7 +460,9 @@ fig4.show()
      SECCIÓN 5 — LA VENTANA
 ════════════════════════════════════════════════════════ -->
 
-<div class="section-divider">La ventana</div>
+::: {.section-divider}
+La ventana
+:::
 
 ::: {.column-screen-inset .grid}
 
@@ -551,7 +556,7 @@ fig5.update_layout(
 fig5.show()
 ```
 
-<p class="fuente">Modelo basado en Heckman, J.J. (2006). Science, 312(5782), 1900–1902.</p>
+[Modelo basado en Heckman, J.J. (2006). Science, 312(5782), 1900–1902.]{.fuente}
 
 :::
 
@@ -561,7 +566,9 @@ fig5.show()
      SECCIÓN 6 — HALLAZGOS
 ════════════════════════════════════════════════════════ -->
 
-<div class="section-divider">Hallazgos</div>
+::: {.section-divider}
+Hallazgos
+:::
 
 ::: {.column-body}
 
@@ -593,7 +600,9 @@ de salud y educación temprana llega más tarde y con menos recursos.
      SECCIÓN 7 — FUENTES
 ════════════════════════════════════════════════════════ -->
 
-<div class="section-divider">Fuentes y metodología</div>
+::: {.section-divider}
+Fuentes y metodología
+:::
 
 ::: {.column-body}
 
@@ -613,9 +622,7 @@ McEwen, B.S. (2008). Central effects of stress hormones in health and disease. *
 
 :::
 
-<div class="page-footer">
-  Equipo Voces ODS 2030 · HackODS UNAM 2026 · Datos 100% abiertos y reproducibles<br>
-  <span style="opacity:0.6; font-size:0.8rem;">
-    github.com/Tobon74/neuroeducacion-ods · CC BY-SA 4.0
-  </span>
-</div>
+::: {.page-footer}
+Equipo Voces ODS 2030 · HackODS UNAM 2026 · Datos 100% abiertos y reproducibles\
+[github.com/Tobon74/neuroeducacion-ods · CC BY-SA 4.0]{style="opacity:0.6; font-size:0.8rem;"}
+:::

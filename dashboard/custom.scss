@@ -265,3 +265,16 @@ table {
   font-size: 0.85rem;
   margin-top: 4rem;
 }
+/* Agregado para limpieza de QMD */
+.ods-container {
+    padding: 1.5rem 2rem 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.fuente-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+}
