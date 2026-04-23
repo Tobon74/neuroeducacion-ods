@@ -32,20 +32,27 @@ SEP y ENSANUT lo confirman en México.
 ## Estructura del repositorio
 
 ```
-neuroeducacion-ods/
+HackODS_VocesODS2030/
+├── .python-version        ← Versión de Python gestionada por uv
+├── pyproject.toml         ← Definición de dependencias (Criterio T1)
+├── uv.lock                ← Bloqueo de versiones para reproducibilidad (Criterio T1)
+├── LICENSE                ← Licencia CC BY-NC-SA 4.0 (Criterio T7)
+├── ai-log.md              ← Declaratoria de uso de IA
+├── README.md              ← Este archivo
 ├── dashboard/
-│   └── index.qmd          ← Documento Quarto principal (dashboard narrativo)
+│   ├── index.qmd          ← Documento Quarto principal (Criterio T2)
+│   └── _quarto.yml        ← Configuración de salida a docs/ (Criterio T4)
+├── docs/
+│   └── index.html         ← Tablero renderizado final (Criterio T4)
 ├── datos/
-│   ├── raw/               ← Datos originales sin modificar
-│   └── clean/             ← Datos procesados para visualización
+│   ├── raw/               ← Datos originales de INEGI/CONEVAL/SEP
+│   └── clean/             ← Datos procesados y cálculo del IVN
 ├── scripts/
-│   ├── 01_descarga_inegi.py   ← Descarga vía API INEGI v2.0
-│   ├── 02_limpieza.py         ← Limpieza, cruce de fuentes y cálculo del IVN
-│   └── 03_visualizaciones.py  ← Generación de visualizaciones HTML interactivas
-├── visualizaciones/       ← Gráficas HTML exportadas (Plotly)
-├── ai-log.md              ← Declaratoria de uso de IA (formato oficial HackODS)
-├── LICENSE                ← Licencia CC BY-SA 4.0
-└── README.md              ← Este archivo
+│   ├── 01_descarga_inegi.py
+│   ├── 02_limpieza.py
+│   └── 03_visualizaciones.py
+└── visualizaciones/       ← Gráficas Plotly exportadas
+
 ```
 
 ---
